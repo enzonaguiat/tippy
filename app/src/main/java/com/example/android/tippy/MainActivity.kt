@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         var tipAmount = baseAmount * tipPercent / 100
         var totalAmount = baseAmount + tipAmount
 
-        tvTipAmount.text = tipAmount.toString()
-        tvTotalAmount.text = totalAmount.toString()
+        tvTipAmount.text = "%.2f".format(tipAmount)
+        tvTotalAmount.text = "%.2f".format(totalAmount)
     }
 }
