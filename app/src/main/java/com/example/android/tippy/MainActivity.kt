@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvTipPercent: TextView
     private lateinit var tvTipAmount: TextView
     private lateinit var tvTotalAmount: TextView
+    private lateinit var tvTipPercentDescription: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         tvTipPercent = findViewById(R.id.tvTipPercentLabel)
         tvTipAmount = findViewById(R.id.tvTipAmount)
         tvTotalAmount = findViewById(R.id.tvTotalAmount)
+        tvTipPercentDescription = findViewById(R.id.tvTipPercentDescription)
 
         seekBarTip.progress = INITIAL_TIP_PERCENT
         tvTipPercent.text = "$INITIAL_TIP_PERCENT%"
@@ -43,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i(TAG, "onProgressChanged: $p1")
                 tvTipPercent.text = "$p1%"
                 computeTipAndTotal()
+
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {}
