@@ -5,7 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/primary_blue</item>
         <item name="colorPrimaryVariant">@color/darker_blue</item>
-        <item name="android:colorBackground">@color/background_blue</item>
+        <item name="android:colorBackground">@color/background_gray</item>
     </style>
 
     <style name="Theme.Tippy" parent="Base.Theme.Tippy" />
