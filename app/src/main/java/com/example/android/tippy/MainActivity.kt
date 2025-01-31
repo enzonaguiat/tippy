@@ -40,12 +40,13 @@ class MainActivity : AppCompatActivity() {
 
         seekBarTip.progress = INITIAL_TIP_PERCENT
         tvTipPercent.text = "$INITIAL_TIP_PERCENT%"
+        updateTipDescription(INITIAL_TIP_PERCENT)
         seekBarTip.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 Log.i(TAG, "onProgressChanged: $p1")
                 tvTipPercent.text = "$p1%"
                 computeTipAndTotal()
-
+                updateTipDescription(p1)
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {}
@@ -63,6 +64,17 @@ class MainActivity : AppCompatActivity() {
                 computeTipAndTotal()
             }
         })
+    }
+
+    private fun updateTipDescription(tipPercent: Int) {
+        val tipDescription = when (tipPercent) {
+            in 0..9 -> "Poor"
+            in 10..14 -> "Acceptable"
+            in 15..19 -> "Good"
+            in 20..24 -> "Great"
+            else -> "Amazing"
+        }
+        tvTipPercentDescription.text = tipDescription
     }
 
     private fun computeTipAndTotal() {
