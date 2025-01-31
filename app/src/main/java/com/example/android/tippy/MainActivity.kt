@@ -9,8 +9,10 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.vectordrawable.graphics.drawable.ArgbEvaluator
 
 private const val TAG = "MainActivity"
 private const val INITIAL_TIP_PERCENT = 15
@@ -75,6 +77,12 @@ class MainActivity : AppCompatActivity() {
             else -> "Amazing"
         }
         tvTipPercentDescription.text = tipDescription
+        val color = ArgbEvaluator().evaluate(
+            tipPercent.toFloat()/seekBarTip.max,
+            ContextCompat.getColor(this, R.color.worst_tip_color),
+            ContextCompat.getColor(this, R.color.best_tip_color)
+        ) as Int
+        tvTipPercentDescription.setTextColor(color)
     }
 
     private fun computeTipAndTotal() {
