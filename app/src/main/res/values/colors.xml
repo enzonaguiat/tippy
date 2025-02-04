@@ -4,7 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary_blue">#6187BB</color>
     <color name="darker_blue">#2C3D55</color>
-    <color name="background_gray">#C1D0DE</color>
+    <color name="background_gray">#DCEFF5</color>
     <color name="best_tip_color">#35BA01</color>
     <color name="worst_tip_color">#DC1E0B</color>
 </resources>
