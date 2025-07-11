@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.widget.Button
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.vectordrawable.graphics.drawable.ArgbEvaluator
+import android.view.View
 
 private const val TAG = "MainActivity"
 private const val INITIAL_TIP_PERCENT = 15
@@ -23,6 +26,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvTipAmount: TextView
     private lateinit var tvTotalAmount: TextView
     private lateinit var tvTipPercentDescription: TextView
+    private lateinit var toggleButtonSplitBill: ToggleButton
+    private lateinit var etSplitBillNumber: EditText
+    private lateinit var tvBillPerPersonLabel: TextView
+    private lateinit var tvTotalPerPerson: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +46,10 @@ class MainActivity : AppCompatActivity() {
         tvTipAmount = findViewById(R.id.tvTipAmount)
         tvTotalAmount = findViewById(R.id.tvTotalAmount)
         tvTipPercentDescription = findViewById(R.id.tvTipPercentDescription)
+        toggleButtonSplitBill = findViewById((R.id.toggleButtonSplitBill))
+        etSplitBillNumber = findViewById(R.id.etSplitBillNumber)
+        tvBillPerPersonLabel = findViewById((R.id.tvBillPerPersonLabel))
+        tvTotalPerPerson = findViewById(R.id.tvTotalPerPerson)
 
         seekBarTip.progress = INITIAL_TIP_PERCENT
         tvTipPercent.text = "$INITIAL_TIP_PERCENT%"
@@ -66,6 +77,22 @@ class MainActivity : AppCompatActivity() {
                 computeTipAndTotal()
             }
         })
+        etSplitBillNumber.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(p0: Editable?) {
+                Log.i(TAG, "Changed split bill number $p0")
+                computeSplitBill()
+            }
+        })
+        toggleButtonSplitBill.setOnCheckedChangeListener {_, isChecked ->
+            val visibility = if (isChecked) View.VISIBLE else View.GONE
+            etSplitBillNumber.visibility = visibility
+            tvBillPerPersonLabel.visibility = visibility
+            tvTotalPerPerson.visibility = visibility
+        }
     }
 
     private fun updateTipDescription(tipPercent: Int) {
@@ -98,5 +125,19 @@ class MainActivity : AppCompatActivity() {
 
         tvTipAmount.text = "%.2f".format(tipAmount)
         tvTotalAmount.text = "%.2f".format(totalAmount)
+    }
+
+    private fun computeSplitBill() {
+        if (tvTotalAmount.text.isEmpty()) {
+            Log.i(TAG, "no Total Amount")
+            tvTotalPerPerson.text = ""
+            return
+        }
+        if (etSplitBillNumber.text.isEmpty() || etSplitBillNumber.text.toString() == "0") {
+            return
+        }
+        var totalAmount = tvTotalAmount.text.toString().toDouble()
+        var totalAmountPerPerson = tvTotalAmount.text.toString().toDouble() / etSplitBillNumber.text.toString().toInt()
+        tvTotalPerPerson.text = "%.2f".format(totalAmountPerPerson)
     }
 }

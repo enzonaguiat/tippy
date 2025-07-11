@@ -103,26 +103,40 @@
         app:layout_constraintTop_toBottomOf="@+id/seekBarTip"
         tools:text="Good" />
 
-    <Button
-        android:id="@+id/btnSplitBill"
+    <TextView
+        android:id="@+id/tvSplit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Split Bill?"
+        android:text="Split?"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="@+id/tvTotalLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvTotalLabel"
-        tools:layout_editor_absoluteX="32dp" />
+        tools:text="Split?" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonSplitBill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        android:textOff="No"
+        android:textOn="Yes"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSplit"
+        app:layout_constraintStart_toStartOf="@+id/tvTotalAmount"
+        app:layout_constraintTop_toTopOf="@+id/tvSplit" />
 
     <EditText
         android:id="@+id/etSplitBillNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="32dp"
+        android:height="50dp"
         android:ems="10"
         android:hint="Split Bill By How Many?"
         android:inputType="number"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/btnSplitBill"
-        tools:layout_editor_absoluteX="33dp" />
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/toggleButtonSplitBill"
+        app:layout_constraintTop_toBottomOf="@+id/toggleButtonSplitBill" />
 
     <TextView
         android:id="@+id/tvTotalPerPerson"
@@ -130,7 +144,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="$24"
+        android:text=""
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/tvBillPerPersonLabel"
         app:layout_constraintTop_toBottomOf="@+id/etSplitBillNumber" />
 
@@ -140,6 +155,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Bill Per Person"
-        app:layout_constraintTop_toBottomOf="@+id/etSplitBillNumber"
-        tools:layout_editor_absoluteX="27dp" />
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/etSplitBillNumber"
+        app:layout_constraintTop_toBottomOf="@+id/etSplitBillNumber" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
